@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Cats Database";
+}
+
+<div>
+    @if (ViewBag.Error != "")
+    {
+        <p style="color:red;">@ViewBag.Error</p>
+    }
+</div>
+
+<div>
+
+    @if (ViewBag.CatModel != null)
+    {
+        foreach (var c in ViewBag.CatModel.Values)
+        {
+            <b>@c.OwnerGender</b>
+            <ul>                
+                @foreach (var n in c.CatNames)
+                {
+                    <li>@n</li>
+                }
+            </ul>
+        }   
+    }
+</div>
