@@ -8,7 +8,7 @@ namespace PetApp.Model
 {
     public class PetInfo
     {
-        PetAppAPI peopleApi = new PetAppAPI();
+        PetAppAPIService peopleApi = new PetAppAPIService();
 
         /// <summary>
         /// Return the list of the people

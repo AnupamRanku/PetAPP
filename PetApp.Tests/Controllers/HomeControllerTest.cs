@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PetApp;
 using PetApp.Controllers;
 using PetApp.Model;
+using PetApp.Common;
 
 namespace PetApp.Tests.Controllers
 {
@@ -14,7 +15,7 @@ namespace PetApp.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void IndexRetursaView()
         {
             // Arrange
             HomeController controller = new HomeController();
@@ -28,7 +29,7 @@ namespace PetApp.Tests.Controllers
 
 
         [TestMethod]
-        public void AboutError()
+        public void IndexWithNoError()
         {
             // Arrange
             HomeController controller = new HomeController();
@@ -42,7 +43,7 @@ namespace PetApp.Tests.Controllers
 
 
         [TestMethod]
-        public void People()
+        public void PeopleIsNotEmpty()
         {
             PetInfo pmodel = new PetInfo();
             Assert.IsNotNull(pmodel.GetPeople());            
@@ -50,13 +51,31 @@ namespace PetApp.Tests.Controllers
 
 
         [TestMethod]
-        public void CatDBModel()
+        public void AtleastOneCatUnderOwner()
         {
             PetInfo pmodel = new PetInfo();           
             Assert.AreNotEqual(pmodel.GetCatByGender().Count, 0);
         }
 
 
-        
+        [TestMethod]
+        public void ConfirmCatNamesSorting()
+        {
+            PetInfo pmodel = new PetInfo();
+            Dictionary<String, CatStat> catDB = pmodel.GetCatByGender();
+
+            foreach (var catS in catDB.Values)
+            {
+                String allCatNames = String.Join(",", catS.CatNames);
+                catS.CatNames.Sort();
+                if (String.Join(",", catS.CatNames) != allCatNames){
+                    Assert.Fail("Cat Name is not sorted: " + allCatNames);
+
+                }
+            }
+        }
     }
+
+
+
 }
